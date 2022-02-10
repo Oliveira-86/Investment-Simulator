@@ -8,10 +8,10 @@ const buttonLoading = keyframes`
 
 export const StyledButton = styled.button`
   position: relative;
-  padding: 8px;
+  padding: 12px;
   background-color: #ed8e53;
   border-radius: 6px;
-  width: 150px;
+  width: 180px;
   cursor: pointer;
   border: 1px solid #ed8e53;
   font-weight: 700;
@@ -20,6 +20,10 @@ export const StyledButton = styled.button`
     secondary &&`     
       background-color: transparent; 
       border: 1px solid black;
+
+      &:hover {
+        background-color: transparent;
+      }
     `}
 
     ${({ disabled }) => disabled && `
@@ -28,12 +32,12 @@ export const StyledButton = styled.button`
       border: 1px solid #c0c0c0;
       color: #0c0c0c;
 
-      &::hover {
+      &:hover {
         background-color: #c0c0c0;
       }
     `}
 
-  :hover {
+  &:hover {
     background-color: #d78b5c;
   }
 

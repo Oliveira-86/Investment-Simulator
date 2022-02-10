@@ -3,22 +3,27 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 120px;
+  width: 180px;
 `;
 
 export const Label = styled.label`
-  font-size: 14px;
-  color: #828282;
+  font-size: 13px;
+  color: #1c1c1c;
   margin-bottom: 10px;
+  text-align: start;
+  font-weight: 600;
 
   ${({ error }) => error && `
     color: red;
   `}
 `;
 
-export const StyledInput = styled.input.attrs({ type: "number" })`
+export const StyledInput = styled.input.attrs({ type: "text" })`
   border: none;
   border-bottom: 1.5px solid #1c1c1c;
+  background-color: transparent;
+  padding: 5px;
+  font-size: 15px;
 
   ${({ error }) => error && `
     border-bottom: 1.5px solid red;

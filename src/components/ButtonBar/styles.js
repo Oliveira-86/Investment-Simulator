@@ -1,22 +1,28 @@
 import styled from "styled-components";
 
+export const ButtonBarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 150px;
+  width: 180px;
   align-items: center;
   justify-content: space-between;
 `;
 
 export const Title = styled.p`
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
 `;
 
 export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 150px;
+  width: 180px;
   align-items: center;
   justify-content: space-between;
   border-radius: 6px;
@@ -35,10 +41,9 @@ export const Button = styled.button`
   align-items: center;
   justify-content: center;
   font-size: 10px;
-  padding: 8px;
+  padding: 12px;
   width: 100%;
   background-color: transparent;
-  height: 100%;
   border: none;
   cursor: pointer;
 
@@ -72,7 +77,7 @@ export const Button = styled.button`
     `}
     background-color: #ed8e53;
     color: white;
-    height: 110%;
+    height: 100%;
   }
 
   &:focus {
@@ -82,7 +87,8 @@ export const Button = styled.button`
         border-right: 1.5px solid #0c0c0c;
     `}
     background-color: #ed8e53;
-    height: 110%;
+    height: 100%;
+    width: 100%;
     color: white;
   }
 
@@ -93,7 +99,7 @@ export const Button = styled.button`
         border-right: 1.5px solid #0c0c0c;
     `}
     background-color: #ed8e53;
-    height: 110%;
+    height: 100%;
     color: white;
   }
 `;

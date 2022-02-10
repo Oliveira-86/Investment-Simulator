@@ -7,11 +7,12 @@ import {
   TitleContainer,
   Button,
   Icon,
+  ButtonBarContainer
 } from "./styles";
 
 const ButtonBar = (props) => {
   return (
-    <>
+    <ButtonBarContainer>
       <TitleContainer>
         <Title>{props.title}</Title>
         <Icon>
@@ -30,7 +31,7 @@ const ButtonBar = (props) => {
         )}
         <Button {...props}>{props.textLeft}</Button>
       </ButtonsContainer>
-    </>
+    </ButtonBarContainer>
   );
 };
 

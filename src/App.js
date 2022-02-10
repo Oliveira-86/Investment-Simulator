@@ -1,10 +1,12 @@
-import "./App.css";
+import Page from './page';
+import GlobalStyle from './styles/global';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Salario 3500R$</h1>
-    </div>
+    <>
+      <Page />
+      <GlobalStyle />
+    </>
   );
 }
 
