@@ -27,7 +27,7 @@ export const StyledButton = styled.button`
     `}
 
     ${({ disabled }) => disabled && `
-      cursor: none;
+      cursor: auto;
       background-color: #c0c0c0;
       border: 1px solid #c0c0c0;
       color: #0c0c0c;
@@ -36,10 +36,6 @@ export const StyledButton = styled.button`
         background-color: #c0c0c0;
       }
     `}
-
-  &:hover {
-    background-color: #d78b5c;
-  }
 
   :before {
     content: "";
@@ -56,7 +52,10 @@ export const StyledButton = styled.button`
     border-top-color: #ccc;
     animation: ${buttonLoading} 0.6s linear infinite;
 
-    ${({ loading }) => loading && ` margin-left: -10px`}
+    ${({ loading }) => loading && ` 
+      margin-left: -10px, 
+      background-color: #d78b5c;
+    `}
   }
   ${({ loading }) => loading && `height: 33px`}
 `;

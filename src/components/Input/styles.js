@@ -17,8 +17,7 @@ export const Label = styled.label`
     color: red;
   `}
 `;
-
-export const StyledInput = styled.input.attrs({ type: "text" })`
+export const StyledInput = styled.input`
   border: none;
   border-bottom: 1.5px solid #1c1c1c;
   background-color: transparent;
@@ -37,6 +36,7 @@ export const StyledInput = styled.input.attrs({ type: "text" })`
     outline: none;
   }
 `;
+
 
 export const ErrorMsg = styled.p`
     color: red;
