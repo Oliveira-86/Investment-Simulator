@@ -7,7 +7,8 @@ import {
   FormTitle,
   Label,
 } from "./styles";
-import ButtonBar from "../components/ButtonBar";
+import ButtonBarRend from "../components/ButtonBarRend";
+import ButtonBarIndex from "../components/ButtonBarIndex";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import * as api from "../api/api";
@@ -17,7 +18,6 @@ import "./stylesCss.css";
 import CurrencyInput from "react-currency-input-field";
 
 const Page = (props) => {
-  // const [simulation, setSimulation] = useState([]);
   const [indexing, setIndexing] = useState([]);
   const [enteredAporteInicial, setEnteredAporteInicial] = useState("");
   const [enteredAporteInicialTouched, setEnteredAporteInicialTouched] =
@@ -32,6 +32,15 @@ const Page = (props) => {
     useState(false);
   const [rentabilidadeIsTouched, setRentabilidadeIsTouched] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
+  const [redimentoType, setRendimentoType] = useState(false);
+  const [indexacaoType, setIndexacaoType] = useState("pre" | "pos" | "fixado");
+  const [rendimentoButtonLeft, setRendimentoButtonLeft] = useState(false);
+
+  const rendType = redimentoType ? "liquido" : "bruto";
+
+  if (indexacaoType === 0) {
+    setIndexacaoType("pre");
+  }
 
   const enteredAporteInicialIsValid = enteredAporteInicial !== "";
   const aporteInicialInputIsInvalid =
@@ -97,10 +106,26 @@ const Page = (props) => {
 
     try {
       const { data } = await api.fetchSimulations();
+
       console.log(data);
+      const findObj = data.find(
+        (obj) =>
+          obj.tipoRendimento === rendType && obj.tipoIndexacao === indexacaoType
+      );
+      console.log(findObj);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const onClickRendButtonLeft = () => {
+    setRendimentoButtonLeft(false);
+    setRendimentoType(false);
+  };
+
+  const onClickRendButtonRight = () => {
+    setRendimentoButtonLeft(true);
+    setRendimentoType(true);
   };
 
   const handleAporteInicialChange = (event) => {
@@ -149,15 +174,27 @@ const Page = (props) => {
   return (
     <PageContainer>
       <Title>Simulador de Investimentos</Title>
-      <FormContainer onSubmit={formSubmissionHandler}>
+      <FormContainer>
         <FormTitle>Simulador</FormTitle>
         <Row>
-          <ButtonBar title="Rendimento" textRight="Bruto" textLeft="Líquido" />
-          <ButtonBar
+          {rendimentoButtonLeft ? (
+            <ButtonBarRend
+              title="Rendimento"
+              onClickBruto={onClickRendButtonLeft}
+              leftActive
+            />
+          ) : (
+            <ButtonBarRend
+              title="Rendimento"
+              onClickLiq={onClickRendButtonRight}
+              rightActive
+            />
+          )}
+          <ButtonBarIndex
             title="Tipos de indexação"
-            textRight="PRÉ"
-            textMid="POS"
-            textLeft="FIXADO"
+            onClickPre={() => setIndexacaoType("pre")}
+            onClickPos={() => setIndexacaoType("pos")}
+            onClickFix={() => setIndexacaoType("fixado")}
             indexing={true}
           />
         </Row>
@@ -177,7 +214,7 @@ const Page = (props) => {
               onBlur={aporteInicialInputBlurHandler}
             />
           </div>
-          <div style={{ marginLeft: "35px" }}>
+          <div style={{ marginLeft: "45px" }}>
             {aporteMensalInputIsInvalid ? (
               <Label {...props} error>
                 Aporte Mensal
@@ -247,7 +284,7 @@ const Page = (props) => {
         <Row>
           <Button label="Limpar Campos" secondary />
           {formIsValid ? (
-            <Button label="Simular" />
+            <Button label="Simular" onClick={formSubmissionHandler} />
           ) : (
             <Button label="Simular" disabled />
           )}

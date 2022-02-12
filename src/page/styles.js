@@ -30,7 +30,7 @@ export const FormTitle = styled.h1`
   margin-bottom: 20px;
 `;
 
-export const FormContainer = styled.form`
+export const FormContainer = styled.div`
   width: 35%;
   margin-left: 30px;
 `;

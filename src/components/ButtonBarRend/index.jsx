@@ -5,12 +5,13 @@ import {
   ButtonsContainer,
   Title,
   TitleContainer,
-  Button,
+  ButtonRight,
+  ButtonLeft,
   Icon,
   ButtonBarContainer
 } from "./styles";
 
-const ButtonBar = (props) => {
+const ButtonBarRend = (props) => {
   return (
     <ButtonBarContainer>
       <TitleContainer>
@@ -19,20 +20,15 @@ const ButtonBar = (props) => {
           <AiOutlineInfoCircle size={13} />
         </Icon>
       </TitleContainer>
-      <ButtonsContainer>
-        <Button right {...props}>
+      <ButtonsContainer >
+        <ButtonRight right {...props} onClick={props.onClickBruto}>
           <MdOutlineDone size={13} />
-          {props.textRight}
-        </Button>
-        {props.indexing && (
-          <Button {...props} mid>
-            {props.textMid}
-          </Button>
-        )}
-        <Button {...props}>{props.textLeft}</Button>
+          Bruto
+        </ButtonRight>
+        <ButtonLeft {...props} onClick={props.onClickLiq}>Líquido</ButtonLeft>
       </ButtonsContainer>
     </ButtonBarContainer>
   );
 };
 
-export default ButtonBar;
+export default ButtonBarRend;
