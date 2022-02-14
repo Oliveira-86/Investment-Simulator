@@ -5,16 +5,12 @@ export default {
   component: ButtonBar,
 };
 
-export const Primary = () => (
-  <ButtonBar
-    title="Tipos de indexação"
-  />
-);
-
 export const RightActive = () => (
   <ButtonBar
     title="Tipos de indexação"
     rightActive
+    textRight="Bruto"
+    textLeft="Líquido"
   />
 );
 
@@ -22,5 +18,11 @@ export const LeftActive = () => (
   <ButtonBar
     title="Tipos de indexação"
     leftActive
+    textRight="Bruto"
+    textLeft="Líquido"
   />
+);
+
+export const MidActive = () => (
+  <ButtonBar title="Tipos de indexação" leftActive midButton />
 );

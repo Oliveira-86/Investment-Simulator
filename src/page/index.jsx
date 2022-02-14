@@ -7,8 +7,7 @@ import {
   FormTitle,
   Label,
 } from "./styles";
-import ButtonBarRend from "../components/ButtonBarRend";
-import ButtonBarIndex from "../components/ButtonBarIndex";
+import ButtonBar from "../components/ButtonBar";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import * as api from "../api/api";
@@ -33,14 +32,10 @@ const Page = (props) => {
   const [rentabilidadeIsTouched, setRentabilidadeIsTouched] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
   const [redimentoType, setRendimentoType] = useState(false);
-  const [indexacaoType, setIndexacaoType] = useState("pre" | "pos" | "fixado");
   const [rendimentoButtonLeft, setRendimentoButtonLeft] = useState(false);
+  const [indexingButtonType, setIndexingButtonType] = useState("pre");
 
   const rendType = redimentoType ? "liquido" : "bruto";
-
-  if (indexacaoType === 0) {
-    setIndexacaoType("pre");
-  }
 
   const enteredAporteInicialIsValid = enteredAporteInicial !== "";
   const aporteInicialInputIsInvalid =
@@ -104,15 +99,17 @@ const Page = (props) => {
       return;
     }
 
+    console.log(indexingButtonType);
+
     try {
       const { data } = await api.fetchSimulations();
 
-      console.log(data);
-      const findObj = data.find(
+      const result = data.find(
         (obj) =>
-          obj.tipoRendimento === rendType && obj.tipoIndexacao === indexacaoType
+          obj.tipoRendimento === rendType &&
+          obj.tipoIndexacao === indexingButtonType
       );
-      console.log(findObj);
+      console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -127,7 +124,7 @@ const Page = (props) => {
     setRendimentoButtonLeft(true);
     setRendimentoType(true);
   };
-
+  
   const handleAporteInicialChange = (event) => {
     const aporteInicialValor = event;
     setEnteredAporteInicial(aporteInicialValor);
@@ -178,25 +175,59 @@ const Page = (props) => {
         <FormTitle>Simulador</FormTitle>
         <Row>
           {rendimentoButtonLeft ? (
-            <ButtonBarRend
+            <ButtonBar
               title="Rendimento"
               onClickBruto={onClickRendButtonLeft}
               leftActive
+              textRight="Bruto"
+              textLeft="Líquido"
             />
           ) : (
-            <ButtonBarRend
+            <ButtonBar
               title="Rendimento"
               onClickLiq={onClickRendButtonRight}
               rightActive
+              textRight="Bruto"
+              textLeft="Líquido"
             />
           )}
-          <ButtonBarIndex
-            title="Tipos de indexação"
-            onClickPre={() => setIndexacaoType("pre")}
-            onClickPos={() => setIndexacaoType("pos")}
-            onClickFix={() => setIndexacaoType("fixado")}
-            indexing={true}
-          />
+          {indexingButtonType === "pre" ? (
+            <ButtonBar
+              textRight="PRÉ"
+              textLeft="FIXADO"
+              textMid="POS"
+              rightActive
+              midButton={true}
+              title="Tipos de indexação"
+              onClickPre={() => setIndexingButtonType("pre")}
+              onClickPos={() => setIndexingButtonType("pos")}
+              onClickFix={() => setIndexingButtonType("ipca")}
+            />
+          ) : indexingButtonType === "pos" ? (
+            <ButtonBar
+              textRight="PRÉ"
+              textLeft="FIXADO"
+              textMid="POS"
+              midActive
+              midButton={true}
+              title="Tipos de indexação"
+              onClickPos={() => setIndexingButtonType("pos")}
+              onClickPre={() => setIndexingButtonType("pre")}
+              onClickFix={() => setIndexingButtonType("ipca")}
+            />
+          ) : (
+            <ButtonBar
+              textRight="PRÉ"
+              textLeft="FIXADO"
+              textMid="POS"
+              leftActive
+              midButton={true}
+              title="Tipos de indexação"
+              onClickPos={() => setIndexingButtonType("pos")}
+              onClickPre={() => setIndexingButtonType("pre")}
+              onClickFix={() => setIndexingButtonType("ipca")}
+            />
+          )}
         </Row>
         <Row>
           <div>
