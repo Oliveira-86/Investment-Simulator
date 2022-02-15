@@ -6,15 +6,18 @@ import {
   Title,
   FormTitle,
   Label,
+  Flex,ResultContainer
 } from "./styles";
 import ButtonBar from "../components/ButtonBar";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import * as api from "../api/api";
+import { Bar } from "react-chartjs-2/dist";
 
 import "./stylesCss.css";
 
 import CurrencyInput from "react-currency-input-field";
+import ResultData from "../components/ResultData";
 
 const Page = (props) => {
   const [indexing, setIndexing] = useState([]);
@@ -34,6 +37,9 @@ const Page = (props) => {
   const [redimentoType, setRendimentoType] = useState(false);
   const [rendimentoButtonLeft, setRendimentoButtonLeft] = useState(false);
   const [indexingButtonType, setIndexingButtonType] = useState("pre");
+  const [hasResult, setHasResult] = useState(false);
+  const [result, setResult] = useState();
+  const [chartData, setChatData] = useState({});
 
   const rendType = redimentoType ? "liquido" : "bruto";
 
@@ -109,11 +115,26 @@ const Page = (props) => {
           obj.tipoRendimento === rendType &&
           obj.tipoIndexacao === indexingButtonType
       );
-      console.log(result);
+      setResult(result);
+
+      setChatData(result.graficoValores.comAporte);
     } catch (error) {
       console.log(error);
     }
+    setHasResult(true);
   };
+
+  // const newChartData = {
+  //   primeiro: chartData.toFixed(2),
+  //   primeiro: chartData.toFixed(2),
+  //   primeiro: chartData.toFixed(2),
+  //   primeiro: chartData.toFixed(2),
+  // }
+
+  const data = Object.values(chartData);
+  const key = Object.entries(chartData);
+
+  
 
   const onClickRendButtonLeft = () => {
     setRendimentoButtonLeft(false);
@@ -124,7 +145,7 @@ const Page = (props) => {
     setRendimentoButtonLeft(true);
     setRendimentoType(true);
   };
-  
+
   const handleAporteInicialChange = (event) => {
     const aporteInicialValor = event;
     setEnteredAporteInicial(aporteInicialValor);
@@ -171,156 +192,200 @@ const Page = (props) => {
   return (
     <PageContainer>
       <Title>Simulador de Investimentos</Title>
-      <FormContainer>
-        <FormTitle>Simulador</FormTitle>
-        <Row>
-          {rendimentoButtonLeft ? (
-            <ButtonBar
-              title="Rendimento"
-              onClickBruto={onClickRendButtonLeft}
-              leftActive
-              textRight="Bruto"
-              textLeft="Líquido"
-            />
-          ) : (
-            <ButtonBar
-              title="Rendimento"
-              onClickLiq={onClickRendButtonRight}
-              rightActive
-              textRight="Bruto"
-              textLeft="Líquido"
-            />
-          )}
-          {indexingButtonType === "pre" ? (
-            <ButtonBar
-              textRight="PRÉ"
-              textLeft="FIXADO"
-              textMid="POS"
-              rightActive
-              midButton={true}
-              title="Tipos de indexação"
-              onClickPre={() => setIndexingButtonType("pre")}
-              onClickPos={() => setIndexingButtonType("pos")}
-              onClickFix={() => setIndexingButtonType("ipca")}
-            />
-          ) : indexingButtonType === "pos" ? (
-            <ButtonBar
-              textRight="PRÉ"
-              textLeft="FIXADO"
-              textMid="POS"
-              midActive
-              midButton={true}
-              title="Tipos de indexação"
-              onClickPos={() => setIndexingButtonType("pos")}
-              onClickPre={() => setIndexingButtonType("pre")}
-              onClickFix={() => setIndexingButtonType("ipca")}
-            />
-          ) : (
-            <ButtonBar
-              textRight="PRÉ"
-              textLeft="FIXADO"
-              textMid="POS"
-              leftActive
-              midButton={true}
-              title="Tipos de indexação"
-              onClickPos={() => setIndexingButtonType("pos")}
-              onClickPre={() => setIndexingButtonType("pre")}
-              onClickFix={() => setIndexingButtonType("ipca")}
-            />
-          )}
-        </Row>
-        <Row>
-          <div>
-            {aporteInicialInputIsInvalid ? (
-              <Label {...props} error>
-                Aporte Inicial
-              </Label>
+      <Flex>
+        <FormContainer>
+          <FormTitle>Simulador</FormTitle>
+          <Row>
+            {rendimentoButtonLeft ? (
+              <ButtonBar
+                title="Rendimento"
+                onClickBruto={onClickRendButtonLeft}
+                leftActive
+                textRight="Bruto"
+                textLeft="Líquido"
+              />
             ) : (
-              <Label {...props}>Aporte Inicial</Label>
+              <ButtonBar
+                title="Rendimento"
+                onClickLiq={onClickRendButtonRight}
+                rightActive
+                textRight="Bruto"
+                textLeft="Líquido"
+              />
             )}
-            <CurrencyInput
-              intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-              className={aporteInicialInputClasses}
-              onValueChange={handleAporteInicialChange}
-              onBlur={aporteInicialInputBlurHandler}
-            />
-          </div>
-          <div style={{ marginLeft: "45px" }}>
-            {aporteMensalInputIsInvalid ? (
-              <Label {...props} error>
-                Aporte Mensal
-              </Label>
+            {indexingButtonType === "pre" ? (
+              <ButtonBar
+                textRight="PRÉ"
+                textLeft="FIXADO"
+                textMid="POS"
+                rightActive
+                midButton={true}
+                title="Tipos de indexação"
+                onClickPre={() => setIndexingButtonType("pre")}
+                onClickPos={() => setIndexingButtonType("pos")}
+                onClickFix={() => setIndexingButtonType("ipca")}
+              />
+            ) : indexingButtonType === "pos" ? (
+              <ButtonBar
+                textRight="PRÉ"
+                textLeft="FIXADO"
+                textMid="POS"
+                midActive
+                midButton={true}
+                title="Tipos de indexação"
+                onClickPos={() => setIndexingButtonType("pos")}
+                onClickPre={() => setIndexingButtonType("pre")}
+                onClickFix={() => setIndexingButtonType("ipca")}
+              />
             ) : (
-              <Label {...props}>Aporte Mensal</Label>
+              <ButtonBar
+                textRight="PRÉ"
+                textLeft="FIXADO"
+                textMid="POS"
+                leftActive
+                midButton={true}
+                title="Tipos de indexação"
+                onClickPos={() => setIndexingButtonType("pos")}
+                onClickPre={() => setIndexingButtonType("pre")}
+                onClickFix={() => setIndexingButtonType("ipca")}
+              />
             )}
-            <CurrencyInput
-              intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-              className={aporteMensalInputClasses}
-              onValueChange={handleAporteMensalChange}
-              onBlur={aporteMensalInputBlurHandler}
-            />
-          </div>
-        </Row>
-        <Row>
-          {prazoInputIsInvalid ? (
+          </Row>
+          <Row>
+            <div>
+              {aporteInicialInputIsInvalid ? (
+                <Label {...props} error>
+                  Aporte Inicial
+                </Label>
+              ) : (
+                <Label {...props}>Aporte Inicial</Label>
+              )}
+              <CurrencyInput
+                intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+                className={aporteInicialInputClasses}
+                onValueChange={handleAporteInicialChange}
+                onBlur={aporteInicialInputBlurHandler}
+              />
+            </div>
+            <div style={{ marginLeft: "45px" }}>
+              {aporteMensalInputIsInvalid ? (
+                <Label {...props} error>
+                  Aporte Mensal
+                </Label>
+              ) : (
+                <Label {...props}>Aporte Mensal</Label>
+              )}
+              <CurrencyInput
+                intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+                className={aporteMensalInputClasses}
+                onValueChange={handleAporteMensalChange}
+                onBlur={aporteMensalInputBlurHandler}
+              />
+            </div>
+          </Row>
+          <Row>
+            {prazoInputIsInvalid ? (
+              <Input
+                label="Prazo (em meses)"
+                number
+                onChange={handlePrazoChange}
+                onBlur={prazoInputBlurHandler}
+                error
+              />
+            ) : (
+              <Input
+                label="Prazo (em meses)"
+                number
+                onChange={handlePrazoChange}
+                onBlur={prazoInputBlurHandler}
+              />
+            )}
+            {rentabilidadeInputIsInvalid ? (
+              <Input
+                label="Rentabilidade"
+                onChange={handleRentabilidadeChange}
+                onBlur={rentabilidadeInputBlurHandler}
+                error
+              />
+            ) : rentabilidadeIsTouched ? (
+              <Input
+                label="Rentabilidade"
+                onChange={handleRentabilidadeChange}
+                onBlur={rentabilidadeInputBlurHandler}
+                value={`${enteredRentabilidade}%`}
+                onClick={() => setRentabilidadeIsTouched(false)}
+              />
+            ) : (
+              <Input
+                label="Rentabilidade"
+                onChange={handleRentabilidadeChange}
+                onBlur={rentabilidadeInputBlurHandler}
+                number
+              />
+            )}
+          </Row>
+          <Row>
             <Input
-              label="Prazo (em meses)"
-              number
-              onChange={handlePrazoChange}
-              onBlur={prazoInputBlurHandler}
-              error
+              label="IPCA (ao ano)"
+              value={`${indexing.length > 0 ? indexing[0].valor : ""}%`}
             />
-          ) : (
             <Input
-              label="Prazo (em meses)"
-              number
-              onChange={handlePrazoChange}
-              onBlur={prazoInputBlurHandler}
+              label="CDI (ao ano)"
+              value={`${indexing.length > 0 ? indexing[1].valor : ""}%`}
+            />
+          </Row>
+          <Row>
+            <Button label="Limpar Campos" secondary />
+            {formIsValid ? (
+              <Button label="Simular" onClick={formSubmissionHandler} />
+            ) : (
+              <Button label="Simular" disabled />
+            )}
+          </Row>
+        </FormContainer>
+        <ResultContainer>
+          {hasResult && (
+            <ResultData
+              aliquotaIR={result.aliquotaIR}
+              ganhoLiquido={result.ganhoLiquido.toLocaleString("pt-br", {
+                style: "currency",
+                currency: "BRL",
+              })}
+              valorFinalBruto={result.valorFinalBruto.toLocaleString("pt-br", {
+                style: "currency",
+                currency: "BRL",
+              })}
+              valorFinalLiquido={result.valorFinalLiquido.toLocaleString(
+                "pt-br",
+                { style: "currency", currency: "BRL" }
+              )}
+              valorPagoIR={result.valorPagoIR.toLocaleString("pt-br", {
+                style: "currency",
+                currency: "BRL",
+              })}
+              valorTotalInvestido={result.valorTotalInvestido.toLocaleString(
+                "pt-br",
+                { style: "currency", currency: "BRL" }
+              )}
             />
           )}
-          {rentabilidadeInputIsInvalid ? (
-            <Input
-              label="Rentabilidade"
-              onChange={handleRentabilidadeChange}
-              onBlur={rentabilidadeInputBlurHandler}
-              error
-            />
-          ) : rentabilidadeIsTouched ? (
-            <Input
-              label="Rentabilidade"
-              onChange={handleRentabilidadeChange}
-              onBlur={rentabilidadeInputBlurHandler}
-              value={`${enteredRentabilidade}%`}
-              onClick={() => setRentabilidadeIsTouched(false)}
-            />
-          ) : (
-            <Input
-              label="Rentabilidade"
-              onChange={handleRentabilidadeChange}
-              onBlur={rentabilidadeInputBlurHandler}
-              number
-            />
-          )}
-        </Row>
-        <Row>
-          <Input
-            label="IPCA (ao ano)"
-            value={`${indexing.length > 0 ? indexing[0].valor : ""}%`}
+          <Bar
+            options={{
+              indexAxis: "x",
+            }}
+            data={{
+              labels: key,
+              datasets: [
+                {
+                  label: "valor(R$)",
+                  data: data,
+                  backgroundColor: ["#ed8e53"],
+                },
+              ],
+            }}
           />
-          <Input
-            label="CDI (ao ano)"
-            value={`${indexing.length > 0 ? indexing[1].valor : ""}%`}
-          />
-        </Row>
-        <Row>
-          <Button label="Limpar Campos" secondary />
-          {formIsValid ? (
-            <Button label="Simular" onClick={formSubmissionHandler} />
-          ) : (
-            <Button label="Simular" disabled />
-          )}
-        </Row>
-      </FormContainer>
+        </ResultContainer>
+      </Flex>
     </PageContainer>
   );
 };

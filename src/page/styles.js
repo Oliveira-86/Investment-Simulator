@@ -11,6 +11,10 @@ export const Title = styled.h1`
   margin-bottom: 30px;
 `;
 
+export const Flex = styled.div`
+  display: flex;
+`;
+
 export const Label = styled.label`
   font-size: 13px;
   color: #1c1c1c;
@@ -42,4 +46,5 @@ export const Row = styled.div`
   margin-bottom: 20px;
 `;
 
+export const ResultContainer = styled.div``;
 

@@ -15,9 +15,17 @@ export const Title = styled.p`
   font-size: 13px;
   font-weight: bold;
   margin-top: 3px;
+
+  ${({ green }) => green && `
+    color: #4fa841;
+  `}
 `;
 export const Value = styled.p`
   font-size: 13px;
   margin-bottom: 3px;
   font-weight: 500;
+
+  ${({ green }) => green && `
+    color: #4fa841;
+  `}
 `;

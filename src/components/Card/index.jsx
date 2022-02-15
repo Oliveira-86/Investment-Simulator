@@ -5,7 +5,11 @@ const Card = (props) => {
   return (
     <CardContainer>
       <Title>{props.title}</Title>
-      <Value>R$ {props.value}</Value>
+      {props.percent ? (
+        <Value {...props}>{props.value}%</Value>
+        ) : (
+        <Value {...props}>{props.value}</Value>
+      )}
     </CardContainer>
   );
 };
