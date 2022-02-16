@@ -4,6 +4,12 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 180px;
+
+  @media(max-width: 575px) {
+    margin-bottom: 20px;
+    width: 250px;
+    height: 50px;
+  }
 `;
 
 export const Label = styled.label`

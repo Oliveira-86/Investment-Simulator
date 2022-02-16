@@ -3,6 +3,11 @@ import styled from "styled-components";
 export const ButtonBarContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media(max-width: 575px) {
+    margin-bottom: 20px;
+  }
+
 `;
 
 export const TitleContainer = styled.div`
@@ -11,6 +16,8 @@ export const TitleContainer = styled.div`
   width: 180px;
   align-items: center;
   justify-content: space-between;
+  
+
 `;
 
 export const Title = styled.p`
@@ -28,6 +35,13 @@ export const ButtonsContainer = styled.div`
   border-radius: 6px;
   border: 1.5px solid #0c0c0c;
   height: 40px;
+
+  @media(max-width: 575px) {
+    margin-bottom: 20px;
+    background: red;
+    width: 250px;
+    height: 50px;
+  }
 `;
 
 export const Icon = styled.span`

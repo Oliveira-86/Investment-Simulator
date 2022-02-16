@@ -6,18 +6,20 @@ import {
   Title,
   FormTitle,
   Label,
-  Flex,ResultContainer
+  Flex,
+  ResultContainer,
 } from "./styles";
 import ButtonBar from "../components/ButtonBar";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import * as api from "../api/api";
-import { Bar } from "react-chartjs-2/dist";
+// import { Bar } from "react-chartjs-2/dist";
 
 import "./stylesCss.css";
 
 import CurrencyInput from "react-currency-input-field";
 import ResultData from "../components/ResultData";
+import BarChart from "../components/BarChart";
 
 const Page = (props) => {
   const [indexing, setIndexing] = useState([]);
@@ -40,6 +42,8 @@ const Page = (props) => {
   const [hasResult, setHasResult] = useState(false);
   const [result, setResult] = useState();
   const [chartData, setChatData] = useState({});
+  const [chartDataBlack, setChatDataBlack] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const rendType = redimentoType ? "liquido" : "bruto";
 
@@ -78,12 +82,14 @@ const Page = (props) => {
 
   useEffect(() => {
     const fetchSimu = async () => {
+      setIsLoading(true);
       try {
         const { data } = await api.fetchIndexing();
         setIndexing(data);
       } catch (err) {
         console.log(err);
       }
+      setIsLoading(false);
     };
     fetchSimu();
   }, []);
@@ -105,8 +111,6 @@ const Page = (props) => {
       return;
     }
 
-    console.log(indexingButtonType);
-
     try {
       const { data } = await api.fetchSimulations();
 
@@ -118,23 +122,16 @@ const Page = (props) => {
       setResult(result);
 
       setChatData(result.graficoValores.comAporte);
+      setChatDataBlack(result.graficoValores.semAporte);
     } catch (error) {
       console.log(error);
     }
     setHasResult(true);
   };
 
-  // const newChartData = {
-  //   primeiro: chartData.toFixed(2),
-  //   primeiro: chartData.toFixed(2),
-  //   primeiro: chartData.toFixed(2),
-  //   primeiro: chartData.toFixed(2),
-  // }
-
-  const data = Object.values(chartData);
-  const key = Object.entries(chartData);
-
-  
+  const dataChart = Object.values(chartData);
+  const dataChartBlack = Object.values(chartDataBlack);
+  const labelChart = Object.keys(chartData);
 
   const onClickRendButtonLeft = () => {
     setRendimentoButtonLeft(false);
@@ -252,7 +249,7 @@ const Page = (props) => {
             )}
           </Row>
           <Row>
-            <div>
+            <div className="input-currency-container">
               {aporteInicialInputIsInvalid ? (
                 <Label {...props} error>
                   Aporte Inicial
@@ -267,7 +264,7 @@ const Page = (props) => {
                 onBlur={aporteInicialInputBlurHandler}
               />
             </div>
-            <div style={{ marginLeft: "45px" }}>
+            <div className="input-currency-container-left" style={{  }}>
               {aporteMensalInputIsInvalid ? (
                 <Label {...props} error>
                   Aporte Mensal
@@ -336,54 +333,52 @@ const Page = (props) => {
           </Row>
           <Row>
             <Button label="Limpar Campos" secondary />
-            {formIsValid ? (
+            {isLoading ? (
+              <Button loading />
+            ) : formIsValid ? (
               <Button label="Simular" onClick={formSubmissionHandler} />
             ) : (
               <Button label="Simular" disabled />
             )}
           </Row>
         </FormContainer>
+
         <ResultContainer>
           {hasResult && (
-            <ResultData
-              aliquotaIR={result.aliquotaIR}
-              ganhoLiquido={result.ganhoLiquido.toLocaleString("pt-br", {
-                style: "currency",
-                currency: "BRL",
-              })}
-              valorFinalBruto={result.valorFinalBruto.toLocaleString("pt-br", {
-                style: "currency",
-                currency: "BRL",
-              })}
-              valorFinalLiquido={result.valorFinalLiquido.toLocaleString(
-                "pt-br",
-                { style: "currency", currency: "BRL" }
-              )}
-              valorPagoIR={result.valorPagoIR.toLocaleString("pt-br", {
-                style: "currency",
-                currency: "BRL",
-              })}
-              valorTotalInvestido={result.valorTotalInvestido.toLocaleString(
-                "pt-br",
-                { style: "currency", currency: "BRL" }
-              )}
-            />
+            <>
+              <ResultData
+                aliquotaIR={result.aliquotaIR}
+                ganhoLiquido={result.ganhoLiquido.toLocaleString("pt-br", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+                valorFinalBruto={result.valorFinalBruto.toLocaleString(
+                  "pt-br",
+                  {
+                    style: "currency",
+                    currency: "BRL",
+                  }
+                )}
+                valorFinalLiquido={result.valorFinalLiquido.toLocaleString(
+                  "pt-br",
+                  { style: "currency", currency: "BRL" }
+                )}
+                valorPagoIR={result.valorPagoIR.toLocaleString("pt-br", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+                valorTotalInvestido={result.valorTotalInvestido.toLocaleString(
+                  "pt-br",
+                  { style: "currency", currency: "BRL" }
+                )}
+              />
+              <BarChart
+                data={dataChart}
+                labels={labelChart}
+                dataBlack={dataChartBlack}
+              />
+            </>
           )}
-          <Bar
-            options={{
-              indexAxis: "x",
-            }}
-            data={{
-              labels: key,
-              datasets: [
-                {
-                  label: "valor(R$)",
-                  data: data,
-                  backgroundColor: ["#ed8e53"],
-                },
-              ],
-            }}
-          />
         </ResultContainer>
       </Flex>
     </PageContainer>

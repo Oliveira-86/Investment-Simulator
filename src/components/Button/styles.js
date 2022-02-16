@@ -16,6 +16,12 @@ export const StyledButton = styled.button`
   border: 1px solid #ed8e53;
   font-weight: 700;
 
+  @media(max-width: 575px) {
+    margin-bottom: 20px;
+    width: 250px;
+    height: 50px;
+  }
+
   ${({ secondary }) =>
     secondary &&`     
       background-color: transparent; 
@@ -53,7 +59,7 @@ export const StyledButton = styled.button`
     animation: ${buttonLoading} 0.6s linear infinite;
 
     ${({ loading }) => loading && ` 
-      margin-left: -10px, 
+      margin-left: -10px; 
       background-color: #d78b5c;
     `}
   }

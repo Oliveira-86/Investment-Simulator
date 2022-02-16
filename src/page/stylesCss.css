@@ -6,7 +6,6 @@
   font-size: 15px;
   margin-top: 13px;
   width: 180px;
-
 }
 
 .input-currency-invalid {
@@ -20,15 +19,55 @@
 }
 
 .input-currency::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
+  -webkit-appearance: none;
+}
 .input-currency:focus {
-    outline: none;
+  outline: none;
+}
+
+.input-currency-invalid::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.input-currency-invalid:focus {
+  outline: none;
+}
+
+.input-currency-container-left {
+  margin-left: 45px;
+}
+
+@media (max-width: 800px) {
+  .input-currency-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: -5px;
   }
 
-  .input-currency-invalid::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+  .input-currency-container-left {
+    display: flex;
+    flex-direction: column;
+    margin-left: -5px;
   }
-.input-currency-invalid:focus {
-    outline: none;
+
+  .input-currency {
+    margin-top: 0;
   }
+
+  .input-currency-invalid {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .input-currency {
+    margin-bottom: 20px;
+    width: 250px;
+    height: 50px;
+  }
+
+  .input-currency-invalid {
+    margin-bottom: 20px;
+    width: 250px;
+    height: 50px;
+  }
+}
