@@ -60,13 +60,15 @@
 
 @media (max-width: 575px) {
   .input-currency {
-    margin-bottom: 20px;
+    margin-top: -15px;
+    margin-bottom: 15px;
     width: 250px;
     height: 50px;
   }
 
   .input-currency-invalid {
-    margin-bottom: 20px;
+    margin-top: -15px;
+    margin-bottom: 15px;
     width: 250px;
     height: 50px;
   }

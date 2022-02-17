@@ -4,7 +4,7 @@ import { Container, Heading } from "./styles";
 
 const BarChart = ({ labels, data, dataBlack }) => {
   return (
-    <Container >
+    <Container data-testid='container'>
         <Heading>Projeção de Valores</Heading>
       <Bar
         options={{

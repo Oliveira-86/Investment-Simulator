@@ -1,4 +1,4 @@
-import Page from './page';
+import Page from './Page';
 import GlobalStyle from './styles/global';
 
 function App() {

@@ -5,7 +5,7 @@ export const ButtonBarContainer = styled.div`
   flex-direction: column;
 
   @media(max-width: 575px) {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
 `;
@@ -38,7 +38,6 @@ export const ButtonsContainer = styled.div`
 
   @media(max-width: 575px) {
     margin-bottom: 20px;
-    background: red;
     width: 250px;
     height: 50px;
   }

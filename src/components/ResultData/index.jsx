@@ -6,7 +6,7 @@ import { Container, Grid, Title } from "./styles";
 const ResultData = ({ aliquotaIR, ganhoLiquido, valorFinalBruto, valorFinalLiquido, valorPagoIR, valorTotalInvestido }) => {
   return (
     <Container>
-      <Title>Resultado da Simulação</Title>
+      <Title data-testid='title'>Resultado da Simulação</Title>
       <Grid>
         <Card title="Valor Final Bruto" value={valorFinalBruto} />
         <Card title="Alíquota do IR" value={aliquotaIR} percent />

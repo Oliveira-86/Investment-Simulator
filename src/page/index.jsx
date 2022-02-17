@@ -13,7 +13,6 @@ import ButtonBar from "../components/ButtonBar";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import * as api from "../api/api";
-// import { Bar } from "react-chartjs-2/dist";
 
 import "./stylesCss.css";
 
@@ -132,6 +131,10 @@ const Page = (props) => {
   const dataChart = Object.values(chartData);
   const dataChartBlack = Object.values(chartDataBlack);
   const labelChart = Object.keys(chartData);
+
+  console.log("dataChart", dataChart)
+  console.log("dataChartBlack", dataChartBlack)
+  console.log("labelChart", labelChart)
 
   const onClickRendButtonLeft = () => {
     setRendimentoButtonLeft(false);
@@ -262,6 +265,7 @@ const Page = (props) => {
                 className={aporteInicialInputClasses}
                 onValueChange={handleAporteInicialChange}
                 onBlur={aporteInicialInputBlurHandler}
+                data-testid='inicial'
               />
             </div>
             <div className="input-currency-container-left" style={{  }}>
@@ -277,6 +281,7 @@ const Page = (props) => {
                 className={aporteMensalInputClasses}
                 onValueChange={handleAporteMensalChange}
                 onBlur={aporteMensalInputBlurHandler}
+                data-testid='mensal'
               />
             </div>
           </Row>
@@ -306,14 +311,15 @@ const Page = (props) => {
               />
             ) : rentabilidadeIsTouched ? (
               <Input
-                label="Rentabilidade"
-                onChange={handleRentabilidadeChange}
-                onBlur={rentabilidadeInputBlurHandler}
-                value={`${enteredRentabilidade}%`}
-                onClick={() => setRentabilidadeIsTouched(false)}
+              label="Rentabilidade"
+              onChange={handleRentabilidadeChange}
+              onBlur={rentabilidadeInputBlurHandler}
+              value={`${enteredRentabilidade}%`}
+              onClick={() => setRentabilidadeIsTouched(false)}
+              
               />
-            ) : (
-              <Input
+              ) : (
+                <Input
                 label="Rentabilidade"
                 onChange={handleRentabilidadeChange}
                 onBlur={rentabilidadeInputBlurHandler}
@@ -325,10 +331,12 @@ const Page = (props) => {
             <Input
               label="IPCA (ao ano)"
               value={`${indexing.length > 0 ? indexing[0].valor : ""}%`}
+              name='ipca'
             />
             <Input
               label="CDI (ao ano)"
               value={`${indexing.length > 0 ? indexing[1].valor : ""}%`}
+              name='cdi'
             />
           </Row>
           <Row>

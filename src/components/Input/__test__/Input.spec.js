@@ -12,5 +12,5 @@ test("should render Input component", () => {
 
   
   const input = screen.getByTestId(name);
-  userEvent.type(input, '5400');
+  userEvent.type(input, '5400.00');
 });
