@@ -26,6 +26,8 @@
 ##### - Styled-Components
 ##### - Chart.js
 
+# Run the Fronted
+
 ### Install dependencies
     
     $ yarn install
@@ -33,3 +35,12 @@
 ### Run the project
 
     $ yarn start
+    
+
+# Run the Backend
+
+#### Change to the desafio-api-fake folder:
+
+### Run the project
+
+    $ json-server --watch db.json
