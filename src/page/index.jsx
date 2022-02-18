@@ -132,9 +132,12 @@ const Page = (props) => {
   const dataChartBlack = Object.values(chartDataBlack);
   const labelChart = Object.keys(chartData);
 
-  console.log("dataChart", dataChart)
-  console.log("dataChartBlack", dataChartBlack)
-  console.log("labelChart", labelChart)
+  const onHandleClean = () => {
+    setEnteredAporteInicial("");
+    setEnteredAporteMensal("");
+    setEnteredRentabilidade("");
+    setEnteredPrazo("");
+  };
 
   const onClickRendButtonLeft = () => {
     setRendimentoButtonLeft(false);
@@ -265,10 +268,11 @@ const Page = (props) => {
                 className={aporteInicialInputClasses}
                 onValueChange={handleAporteInicialChange}
                 onBlur={aporteInicialInputBlurHandler}
-                data-testid='inicial'
+                data-testid="inicial"
+                value={enteredAporteInicial}
               />
             </div>
-            <div className="input-currency-container-left" style={{  }}>
+            <div className="input-currency-container-left" style={{}}>
               {aporteMensalInputIsInvalid ? (
                 <Label {...props} error>
                   Aporte Mensal
@@ -281,7 +285,8 @@ const Page = (props) => {
                 className={aporteMensalInputClasses}
                 onValueChange={handleAporteMensalChange}
                 onBlur={aporteMensalInputBlurHandler}
-                data-testid='mensal'
+                data-testid="mensal"
+                value={enteredAporteMensal}
               />
             </div>
           </Row>
@@ -293,6 +298,7 @@ const Page = (props) => {
                 onChange={handlePrazoChange}
                 onBlur={prazoInputBlurHandler}
                 error
+                value={enteredPrazo}
               />
             ) : (
               <Input
@@ -300,6 +306,7 @@ const Page = (props) => {
                 number
                 onChange={handlePrazoChange}
                 onBlur={prazoInputBlurHandler}
+                value={enteredPrazo}
               />
             )}
             {rentabilidadeInputIsInvalid ? (
@@ -308,21 +315,22 @@ const Page = (props) => {
                 onChange={handleRentabilidadeChange}
                 onBlur={rentabilidadeInputBlurHandler}
                 error
+                value={enteredRentabilidade}
               />
             ) : rentabilidadeIsTouched ? (
               <Input
-              label="Rentabilidade"
-              onChange={handleRentabilidadeChange}
-              onBlur={rentabilidadeInputBlurHandler}
-              value={`${enteredRentabilidade}%`}
-              onClick={() => setRentabilidadeIsTouched(false)}
-              
-              />
-              ) : (
-                <Input
                 label="Rentabilidade"
                 onChange={handleRentabilidadeChange}
                 onBlur={rentabilidadeInputBlurHandler}
+                value={`${enteredRentabilidade}%`}
+                onClick={() => setRentabilidadeIsTouched(false)}
+              />
+            ) : (
+              <Input
+                label="Rentabilidade"
+                onChange={handleRentabilidadeChange}
+                onBlur={rentabilidadeInputBlurHandler}
+                value={enteredRentabilidade}
                 number
               />
             )}
@@ -331,16 +339,16 @@ const Page = (props) => {
             <Input
               label="IPCA (ao ano)"
               value={`${indexing.length > 0 ? indexing[0].valor : ""}%`}
-              name='ipca'
+              name="ipca"
             />
             <Input
               label="CDI (ao ano)"
               value={`${indexing.length > 0 ? indexing[1].valor : ""}%`}
-              name='cdi'
+              name="cdi"
             />
           </Row>
           <Row>
-            <Button label="Limpar Campos" secondary />
+            <Button label="Limpar Campos" clean secondary onClick={onHandleClean} />
             {isLoading ? (
               <Button loading />
             ) : formIsValid ? (

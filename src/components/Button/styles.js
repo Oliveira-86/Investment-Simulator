@@ -28,7 +28,7 @@ export const StyledButton = styled.button`
       border: 1px solid black;
 
       &:hover {
-        background-color: transparent;
+        background-color: rgba(0, 0, 0, 0.05);
       }
     `}
 
@@ -37,12 +37,7 @@ export const StyledButton = styled.button`
       background-color: #c0c0c0;
       border: 1px solid #c0c0c0;
       color: #0c0c0c;
-
-      &:hover {
-        background-color: #c0c0c0;
-      }
     `}
-
   :before {
     content: "";
     box-sizing: border-box;
