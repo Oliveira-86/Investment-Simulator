@@ -9,35 +9,52 @@ const buttonLoading = keyframes`
 export const StyledButton = styled.button`
   position: relative;
   padding: 12px;
-  background-color: #ed8e53;
+  ${(props) => {
+    switch (props.variant) {
+      case "disabled":
+        return `background-color: ${props.theme.colors.disabled}`;
+      case "outlined":
+        return "background-color: transparent";
+      default:
+        return `background-color: ${props.theme.colors.primary}`;
+    }
+  }};
+  ${(props) => {
+    switch (props.variant) {
+      case "disabled":
+        return "border: 1px solid transparent";
+      case "outlined":
+        return `border: 1px solid ${props.theme.colors.text}`;
+      default:
+        return `border: 1px solid ${props.theme.colors.primary}`;
+    }
+  }};
   border-radius: 6px;
-  width: 180px;
   cursor: pointer;
-  border: 1px solid #ed8e53;
   font-weight: 700;
+  width: 45%;
+  
+  @media (max-width: 800px) {
+    width: 35%;
+  }
 
-  @media(max-width: 575px) {
+  @media (max-width: 575px) {
     margin-bottom: 20px;
-    width: 250px;
+    width: 100%;
     height: 50px;
   }
 
-  ${({ secondary }) =>
-    secondary &&`     
-      background-color: transparent; 
-      border: 1px solid black;
+  ${(props) => {
+    switch (props.variant) {
+      case "disabled":
+        return `&:hover {background-color: ${props.theme.colors.disabled}}`;
+      case "outlined":
+        return "&:hover {background-color: rgba(0,0,0,0.05)}";
+      default:
+        return `&:hover {background-color: ${props.theme.colors.primaryHover}}`;
+    }
+  }}
 
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-      }
-    `}
-
-    ${({ disabled }) => disabled && `
-      cursor: auto;
-      background-color: #c0c0c0;
-      border: 1px solid #c0c0c0;
-      color: #0c0c0c;
-    `}
   :before {
     content: "";
     box-sizing: border-box;
@@ -53,9 +70,11 @@ export const StyledButton = styled.button`
     border-top-color: #ccc;
     animation: ${buttonLoading} 0.6s linear infinite;
 
-    ${({ loading }) => loading && ` 
+    ${(props) =>
+      props.loading &&
+      ` 
       margin-left: -10px; 
-      background-color: #d78b5c;
+      background-color: ${props.theme.colors.primaryHover};
     `}
   }
   ${({ loading }) => loading && `height: 33px`}

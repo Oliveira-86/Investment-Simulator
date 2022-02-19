@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Bar } from "react-chartjs-2";
 import { Container, Heading } from "./styles";
+import { ThemeContext } from "styled-components";
 
 const BarChart = ({ labels, data, dataBlack }) => {
+  const { colors } = useContext(ThemeContext)
   return (
     <Container data-testid='container'>
         <Heading>Projeção de Valores</Heading>
@@ -16,12 +18,12 @@ const BarChart = ({ labels, data, dataBlack }) => {
             {
                 label: "sem aporte",
                 data: dataBlack,
-                backgroundColor: ["#000"],
+                backgroundColor: [colors.text],
               },
             {
               label: "com aporte",
               data,
-              backgroundColor: ["#ed8e53"],
+              backgroundColor: [colors.primary],
             },
           ],
         }}

@@ -3,7 +3,7 @@ import { Container, ErrorMsg, Label, StyledInput } from "./styles";
 
 const Input = (props) => {
   return (
-    <Container>
+    <Container {...props}>
       <Label {...props} htmlFor={props.name}>
         {props.label}
       </Label>

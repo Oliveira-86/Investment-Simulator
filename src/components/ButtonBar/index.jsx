@@ -14,14 +14,14 @@ import {
 
 const ButtonBarRend = (props) => {
   return (
-    <ButtonBarContainer>
-      <TitleContainer>
+    <ButtonBarContainer {...props}>
+      <TitleContainer {...props}>
         <Title>{props.title}</Title>
         <Icon>
           <AiOutlineInfoCircle size={13} />
         </Icon>
       </TitleContainer>
-      <ButtonsContainer>
+      <ButtonsContainer {...props}>
         <ButtonRight
           right
           {...props}

@@ -7,8 +7,8 @@ export default {
 
 export const Primary = () => <Button label="Simular" />
 
-export const Disabled = () => <Button label="Simular" disabled />
+export const Disabled = () => <Button label="Simular" variant='disable' />
 
-export const Secondary = () => <Button label="Limpar Campos" secondary />
+export const Secondary = () => <Button label="Limpar Campos" variant='outlined' />
 
 export const Loading = () => <Button loading />

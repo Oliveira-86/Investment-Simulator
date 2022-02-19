@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const Container = styled.div`
   @media (max-width: 800px) {
     margin-top: 30px;
-    margin-left: -50px;
-    width: 100%;
   }
 
   @media (max-width: 570px) {
@@ -28,8 +26,14 @@ export const Title = styled.h1`
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 50px;
+  grid-column-gap: 1.5em;
   grid-row-gap: 1em;
+
+  @media (max-width: 800px) {
+    grid-column-gap: 10px;
+    margin-right: -20px;
+    
+  }
 
   @media (max-width: 570px) {
     display: flex;

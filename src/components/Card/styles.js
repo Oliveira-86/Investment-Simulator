@@ -11,7 +11,7 @@ export const CardContainer = styled.div`
   box-shadow: 0px 0px 4.5px rgba(0, 0, 0, 0.4);
 
   @media (max-width: 570px) {
-    width: 80%;
+    width: 100%;
     height: 95px;
     padding: 5px;
   }

@@ -3,21 +3,37 @@ import styled from "styled-components";
 export const ButtonBarContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-right: ${({ rend }) => rend && "30px"};
 
-  @media(max-width: 575px) {
-    margin-bottom: 10px;
+  @media (max-width: 800px) {
+    padding-left: 40px;
+    justify-content: center;
+    margin-right: ${({ rend }) => rend && "0px"};
   }
-
+  @media (max-width: 575px) {
+    width: 100%;
+    margin-right: 0;
+    padding: 0;
+  }
 `;
 
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 180px;
+
+  width: ${({ rend }) => (rend ? "100%" : "100%")};
   align-items: center;
   justify-content: space-between;
-  
 
+  @media (max-width: 800px) {
+    width: ${({ rend }) => (rend ? "80%" : "80%")};
+  }
+
+  @media (max-width: 575px) {
+    width: 100%;
+    margin-left: 0;
+  }
 `;
 
 export const Title = styled.p`
@@ -29,22 +45,26 @@ export const Title = styled.p`
 export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 180px;
-  align-items: center;
-  justify-content: space-between;
+  width: ${({ rend }) => (rend ? "100%" : "100%")};
   border-radius: 6px;
-  border: 1.5px solid #0c0c0c;
+  border: 1.5px solid ${(props) => props.theme.colors.text};
   height: 40px;
 
-  @media(max-width: 575px) {
+  @media (max-width: 800px) {
     margin-bottom: 20px;
-    width: 250px;
+    width: ${({ rend }) => (rend ? "80%" : "80%")};
     height: 50px;
+  }
+
+  @media (max-width: 575px) {
+    margin-bottom: 20px;
+    width: 100%;
   }
 `;
 
 export const Icon = styled.span`
   cursor: pointer;
+  margin-top: -8px;
 `;
 
 export const ButtonRight = styled.button`
@@ -62,36 +82,36 @@ export const ButtonRight = styled.button`
   cursor: pointer;
   height: 100%;
 
-  ${({ right }) =>
+  ${({ right, theme }) =>
     right &&
     `
-    border-right: 1.5px solid #0c0c0c;
+    border-right: 1.5px solid ${theme.colors.text};
     border-bottom-left-radius: 7px;
     border-top-left-radius: 7px; 
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   `}
-  ${({ rightActive }) =>
+  ${({ rightActive, theme }) =>
     rightActive &&
     `
-    border-right: 1.5px solid #0c0c0c;
+    border-right: 1.5px solid ${theme.colors.text};
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px; 
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
-    background-color: #ed8e53;
+    background-color: ${theme.colors.primary};
     color: white;
   `}
 
   &:hover {
-    ${({ right }) =>
+    ${({ right, theme }) =>
       right &&
       `
         height: 110%;
-        border-right: 1.5px solid #0c0c0c;
+        border-right: 1.5px solid ${theme.colors.text};
     `}
-    background-color:${({ rightActive }) =>
-      rightActive ? "" : "rgb(237,142,83, 0.3)"};
+    background-color:${({ rightActive, theme }) =>
+      rightActive ? "" : theme.colors.secondaryHover};
     height: 100%;
   }
 `;
@@ -108,18 +128,18 @@ export const ButtonMid = styled.button`
   border: none;
   cursor: pointer;
 
-  ${({ midActive }) =>
+  ${({ midActive, theme }) =>
     midActive &&
     `
     color: white;
-    background-color: #ed8e53;
-    border: 1px solid  #ed8e53;
+    background-color: ${theme.colors.primary};
+    border: 1px solid  ${theme.colors.primary};
   `}
 
-  ${({ mid }) =>
+  ${({ mid, theme }) =>
     mid &&
     `
-    border-right: 1.5px solid #0c0c0c;
+    border-right: 1.5px solid ${theme.colors.text};
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     padding-right: 10px;
@@ -128,14 +148,14 @@ export const ButtonMid = styled.button`
   `}
 
 &:hover {
-    ${({ right }) =>
+    ${({ right, theme }) =>
       right &&
       `
         height: 110%;
-        border-right: 1.5px solid #0c0c0c;
+        border-right: 1.5px solid ${theme.colors.text};
     `}
-    background-color:${({ midActive }) =>
-      midActive ? "" : "rgb(237,142,83, 0.3)"};
+    background-color:${({ midActive, theme }) =>
+      midActive ? "" : theme.colors.primary};
     height: 100%;
   }
 `;
@@ -154,12 +174,12 @@ export const ButtonLeft = styled.button`
   border: none;
   cursor: pointer;
 
-  ${({ leftActive }) =>
+  ${({ leftActive, theme }) =>
     leftActive &&
     `
     color: white;
-    background-color: #ed8e53;
-    border: 1px solid  #ed8e53;
+    background-color:  ${theme.colors.primary};
+    border: 1px solid   ${theme.colors.primary};
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;  
     padding-right: 5px;
@@ -167,10 +187,10 @@ export const ButtonLeft = styled.button`
     height: 100%;
   `}
 
-  ${({ left }) =>
+  ${({ left, theme }) =>
     left &&
     `
-    border-right: 1.5px solid #0c0c0c;
+    border-right: 1.5px solid ${theme.colors.text};
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     padding-right: 10px;
@@ -178,14 +198,14 @@ export const ButtonLeft = styled.button`
   `}
 
 &:hover {
-    ${({ right }) =>
+    ${({ right, theme }) =>
       right &&
       `
         height: 110%;
-        border-right: 1.5px solid #0c0c0c;
+        border-right: 1.5px solid ${theme.colors.text};
     `}
-    background-color:${({ leftActive }) =>
-      leftActive ? "" : "rgb(237,142,83, 0.3)"};
+    background-color:${({ leftActive, theme }) =>
+      leftActive ? "" : theme.colors.secondaryHover};
     height: 100%;
   }
 `;

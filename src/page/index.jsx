@@ -119,7 +119,6 @@ const Page = (props) => {
           obj.tipoIndexacao === indexingButtonType
       );
       setResult(result);
-
       setChatData(result.graficoValores.comAporte);
       setChatDataBlack(result.graficoValores.semAporte);
     } catch (error) {
@@ -194,13 +193,15 @@ const Page = (props) => {
 
   return (
     <PageContainer>
-      <Title>Simulador de Investimentos</Title>
+        <Title>Simulador de Investimentos</Title>
       <Flex>
         <FormContainer>
           <FormTitle>Simulador</FormTitle>
-          <Row>
+
+          <Row {...props}>
             {rendimentoButtonLeft ? (
               <ButtonBar
+                rend
                 title="Rendimento"
                 onClickBruto={onClickRendButtonLeft}
                 leftActive
@@ -209,6 +210,7 @@ const Page = (props) => {
               />
             ) : (
               <ButtonBar
+                rend
                 title="Rendimento"
                 onClickLiq={onClickRendButtonRight}
                 rightActive
@@ -254,7 +256,7 @@ const Page = (props) => {
               />
             )}
           </Row>
-          <Row>
+          <Row {...props}>
             <div className="input-currency-container">
               {aporteInicialInputIsInvalid ? (
                 <Label {...props} error>
@@ -290,9 +292,10 @@ const Page = (props) => {
               />
             </div>
           </Row>
-          <Row>
+          <Row {...props}>
             {prazoInputIsInvalid ? (
               <Input
+                container
                 label="Prazo (em meses)"
                 number
                 onChange={handlePrazoChange}
@@ -311,6 +314,7 @@ const Page = (props) => {
             )}
             {rentabilidadeInputIsInvalid ? (
               <Input
+                container
                 label="Rentabilidade"
                 onChange={handleRentabilidadeChange}
                 onBlur={rentabilidadeInputBlurHandler}
@@ -319,6 +323,7 @@ const Page = (props) => {
               />
             ) : rentabilidadeIsTouched ? (
               <Input
+                container
                 label="Rentabilidade"
                 onChange={handleRentabilidadeChange}
                 onBlur={rentabilidadeInputBlurHandler}
@@ -327,6 +332,7 @@ const Page = (props) => {
               />
             ) : (
               <Input
+                container
                 label="Rentabilidade"
                 onChange={handleRentabilidadeChange}
                 onBlur={rentabilidadeInputBlurHandler}
@@ -335,26 +341,31 @@ const Page = (props) => {
               />
             )}
           </Row>
-          <Row>
+          <Row {...props}>
             <Input
               label="IPCA (ao ano)"
               value={`${indexing.length > 0 ? indexing[0].valor : ""}%`}
               name="ipca"
             />
             <Input
+              container
               label="CDI (ao ano)"
               value={`${indexing.length > 0 ? indexing[1].valor : ""}%`}
               name="cdi"
             />
           </Row>
-          <Row>
-            <Button label="Limpar Campos" clean secondary onClick={onHandleClean} />
+          <Row {...props}>
+            <Button
+              label="Limpar Campos"
+              variant="outlined"
+              onClick={onHandleClean}
+            />
             {isLoading ? (
               <Button loading />
             ) : formIsValid ? (
               <Button label="Simular" onClick={formSubmissionHandler} />
             ) : (
-              <Button label="Simular" disabled />
+              <Button label="Simular" variant="disabled" />
             )}
           </Row>
         </FormContainer>
