@@ -6,6 +6,10 @@
 
 # The App
 
+<img width="500" height="300" src="assets/theme.gif">
+
+# Responsivity
+
 ### Web
 
 <img width="500" height="300" src="assets/web.gif">
