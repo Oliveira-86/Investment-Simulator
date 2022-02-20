@@ -3,8 +3,8 @@ import { Bar } from "react-chartjs-2";
 import { Container, Heading } from "./styles";
 import { ThemeContext } from "styled-components";
 
-const BarChart = ({ labels, data, dataBlack }) => {
-  const { colors } = useContext(ThemeContext)
+  const BarChart = ({ labels, data, dataBlack }) => {
+    const { colors } = useContext(ThemeContext)
   return (
     <Container data-testid='container'>
         <Heading>Projeção de Valores</Heading>

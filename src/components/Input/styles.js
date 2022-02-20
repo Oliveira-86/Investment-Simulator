@@ -37,6 +37,7 @@ export const StyledInput = styled.input`
   background-color: transparent;
   font-size: 15px;
   width: 100%;
+  color: ${(props) => props.theme.colors.text};
 
   @media (max-width: 800px) {
     width: 80%;

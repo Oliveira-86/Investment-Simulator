@@ -18,10 +18,28 @@
   width: 100%;
 }
 
+.input-currency-dark {
+  border: none;
+  border-bottom: 1.5px solid #dedede;
+  background-color: transparent;
+  padding: 5px;
+  font-size: 15px;
+  margin-top: 13px;
+  width: 100%;
+  color: #dedede;
+}
+
 .input-currency::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 .input-currency:focus {
+  outline: none;
+}
+
+.input-currency-dark::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.input-currency-dark:focus {
   outline: none;
 }
 
@@ -75,7 +93,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-  margin-left: 0px;
+   margin-left: 0px;
   }
 
   .input-currency {

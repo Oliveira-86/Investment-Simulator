@@ -9,6 +9,12 @@ const buttonLoading = keyframes`
 export const StyledButton = styled.button`
   position: relative;
   padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  width: 45%;
+  color: ${(props) => props.theme.colors.textButtonBar};
+
   ${(props) => {
     switch (props.variant) {
       case "disabled":
@@ -19,6 +25,7 @@ export const StyledButton = styled.button`
         return `background-color: ${props.theme.colors.primary}`;
     }
   }};
+
   ${(props) => {
     switch (props.variant) {
       case "disabled":
@@ -29,11 +36,7 @@ export const StyledButton = styled.button`
         return `border: 1px solid ${props.theme.colors.primary}`;
     }
   }};
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 700;
-  width: 45%;
-  
+
   @media (max-width: 800px) {
     width: 35%;
   }

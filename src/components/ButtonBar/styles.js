@@ -47,7 +47,7 @@ export const ButtonsContainer = styled.div`
   flex-direction: row;
   width: ${({ rend }) => (rend ? "100%" : "100%")};
   border-radius: 6px;
-  border: 1.5px solid ${(props) => props.theme.colors.text};
+  border: 1.5px solid ${(props) => props.theme.colors.border};
   height: 40px;
 
   @media (max-width: 800px) {
@@ -81,11 +81,12 @@ export const ButtonRight = styled.button`
   border: none;
   cursor: pointer;
   height: 100%;
+  color: ${(props) => props.theme.colors.textButtonBar};
 
   ${({ right, theme }) =>
     right &&
     `
-    border-right: 1.5px solid ${theme.colors.text};
+    border-right: 1.5px solid ${theme.colors.border};
     border-bottom-left-radius: 7px;
     border-top-left-radius: 7px; 
     border-bottom-right-radius: 0;
@@ -94,7 +95,7 @@ export const ButtonRight = styled.button`
   ${({ rightActive, theme }) =>
     rightActive &&
     `
-    border-right: 1.5px solid ${theme.colors.text};
+    border-right: 1.5px solid ${theme.colors.border};
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px; 
     border-bottom-right-radius: 0;
@@ -108,7 +109,7 @@ export const ButtonRight = styled.button`
       right &&
       `
         height: 110%;
-        border-right: 1.5px solid ${theme.colors.text};
+        border-right: 1.5px solid ${theme.colors.border};
     `}
     background-color:${({ rightActive, theme }) =>
       rightActive ? "" : theme.colors.secondaryHover};
@@ -127,6 +128,7 @@ export const ButtonMid = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+  color: ${(props) => props.theme.colors.textButtonBar};
 
   ${({ midActive, theme }) =>
     midActive &&
@@ -139,7 +141,7 @@ export const ButtonMid = styled.button`
   ${({ mid, theme }) =>
     mid &&
     `
-    border-right: 1.5px solid ${theme.colors.text};
+    border-right: 1.5px solid ${theme.colors.border};
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     padding-right: 10px;
@@ -152,7 +154,7 @@ export const ButtonMid = styled.button`
       right &&
       `
         height: 110%;
-        border-right: 1.5px solid ${theme.colors.text};
+        border-right: 1.5px solid ${theme.colors.border};
     `}
     background-color:${({ midActive, theme }) =>
       midActive ? "" : theme.colors.primary};
@@ -173,6 +175,7 @@ export const ButtonLeft = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+  color: ${(props) => props.theme.colors.textButtonBar};
 
   ${({ leftActive, theme }) =>
     leftActive &&
@@ -190,7 +193,7 @@ export const ButtonLeft = styled.button`
   ${({ left, theme }) =>
     left &&
     `
-    border-right: 1.5px solid ${theme.colors.text};
+    border-right: 1.5px solid ${theme.colors.border};
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     padding-right: 10px;
@@ -202,7 +205,7 @@ export const ButtonLeft = styled.button`
       right &&
       `
         height: 110%;
-        border-right: 1.5px solid ${theme.colors.text};
+        border-right: 1.5px solid ${theme.colors.border};
     `}
     background-color:${({ leftActive, theme }) =>
       leftActive ? "" : theme.colors.secondaryHover};

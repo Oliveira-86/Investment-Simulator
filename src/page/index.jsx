@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   FormContainer,
   Row,
@@ -8,17 +8,24 @@ import {
   Label,
   Flex,
   ResultContainer,
+  FlexIcon,
+  TitleContainer,
 } from "./styles";
 import ButtonBar from "../components/ButtonBar";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import * as api from "../api/api";
 
-import "./stylesCss.css";
+import { ThemeContext } from "styled-components";
 
 import CurrencyInput from "react-currency-input-field";
 import ResultData from "../components/ResultData";
 import BarChart from "../components/BarChart";
+
+import Switch from "react-switch";
+import { FaSun, FaMoon } from "react-icons/fa";
+
+import "./stylesCss.css";
 
 const Page = (props) => {
   const [indexing, setIndexing] = useState([]);
@@ -43,6 +50,8 @@ const Page = (props) => {
   const [chartData, setChatData] = useState({});
   const [chartDataBlack, setChatDataBlack] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  const { colors } = useContext(ThemeContext);
 
   const rendType = redimentoType ? "liquido" : "bruto";
 
@@ -182,18 +191,42 @@ const Page = (props) => {
   const prazoInputBlurHandler = () => {
     setEnteredPrazoTouched(true);
   };
-
+  console.log(props.theme);
   const aporteInicialInputClasses = aporteInicialInputIsInvalid
     ? "input-currency-invalid"
+    : props.themeState
+    ? "input-currency-dark"
     : "input-currency";
 
   const aporteMensalInputClasses = aporteMensalInputIsInvalid
     ? "input-currency-invalid"
+    : props.themeState
+    ? "input-currency-dark"
     : "input-currency";
 
   return (
     <PageContainer>
+      <TitleContainer>
         <Title>Simulador de Investimentos</Title>
+        <Switch
+          onChange={props.toggleTheme}
+          checked={props.themeState}
+          className="react-switch"
+          id="normal-switch"
+          uncheckedIcon={
+            <FlexIcon>
+              <FaSun color={"#FFF"} />
+            </FlexIcon>
+          }
+          checkedIcon={
+            <FlexIcon>
+              <FaMoon />
+            </FlexIcon>
+          }
+          offColor={colors.primary}
+          onColor={colors.primary}
+        />
+      </TitleContainer>
       <Flex>
         <FormContainer>
           <FormTitle>Simulador</FormTitle>

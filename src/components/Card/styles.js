@@ -7,7 +7,7 @@ export const CardContainer = styled.div`
   justify-content: space-between;
   width: 150px;
   height: 60px;
-  background-color: #f4f4f4;
+  background-color: ${(props) => props.theme.colors.bgCard};
   box-shadow: 0px 0px 4.5px rgba(0, 0, 0, 0.4);
 
   @media (max-width: 570px) {
