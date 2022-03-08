@@ -29,6 +29,7 @@
 ##### - React
 ##### - Styled-Components
 ##### - Chart.js
+##### - Storybook
 
 # Run the Fronted
 
